@@ -1,0 +1,19 @@
+{
+  "name": "hackyourweather-react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bsilakaymak/HackYourWeather-React.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bsilakaymak/HackYourWeather-React/issues"
+  },
+  "homepage": "https://github.com/bsilakaymak/HackYourWeather-React#readme"
+}
