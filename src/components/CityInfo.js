@@ -1,30 +1,27 @@
-import React from 'react';
-import CityName from './CityName';
-import Description from './Description';
-import Details from './Details';
-const infoStyle = {
-    margin:"auto",
-    width:"18em",
-    border:"2px solid #0f4c75",
-    padding:"2%",
-    color:"#0f4c75",
-    marginTop: "5%"
+import React from "react";
+import CityName from "./CityName";
+import Description from "./Description";
+import Details from "./Details";
+import RemoveButton from "./RemoveButton";
 
-}
-const CityInfo = ({cityWeather})=>{
-    if(cityWeather.cod >= 400){
-        return <h3 style={{textAlign:"center"}}>Error</h3>
-    }
-    else{
-      return(
-        <div style={infoStyle}>
-            <CityName cityWeather = {cityWeather}/>
-            <Description cityWeather = {cityWeather}/>
-            <Details cityWeather = {cityWeather} kelvinToCelcius = {(kelvin)=>{return (kelvin-273).toFixed(2)}}/>        
-        </div>
-        
-    )  
+const CityInfo = ({ cityWeather, remove }) => {
+        return cityWeather.map(item => {
+            return (
+              <div id="info">
+                <CityName item={item} />
+                <Description item={item} />
+                <Details
+                  item={item}
+                  kelvinToCelcius={kelvin => {
+                    return (kelvin - 273).toFixed(2);
+                  }}
+                />
+                <RemoveButton removeCity={remove} item={item} />
+              </div>
+            );
+          });
     }
     
-}
+
+;
 export default CityInfo;
