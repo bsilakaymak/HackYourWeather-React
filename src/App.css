@@ -4,9 +4,11 @@
 }
 
 .App {
-  width: 30%;
+  width: 100%;
   margin: auto;
   text-align: left;
+  display: flex;
+  flex-direction: column;
 }
 
 .orangeMsg {
