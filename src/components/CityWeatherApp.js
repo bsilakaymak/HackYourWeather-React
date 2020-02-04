@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import CityInfo from "./CityInfo";
 import Form from "./Form";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import CityDetails from './pages/CityDetails'
+import Loading from "./Loading";
 
 const CityWeatherApp = () => {
   const [cityWeather, setCityWeather] = useState([]);
@@ -13,7 +16,7 @@ const CityWeatherApp = () => {
     setLoading(true);
 
     fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}&units=metric`
     )
       .then(res => res.json())
       .then(data => {
@@ -21,7 +24,7 @@ const CityWeatherApp = () => {
         const cities = cityWeather.filter(city => city.id !== data.id);
         if (data.cod === 200) {
           setCityWeather([data, ...cities]);
-          setFeedback("Keep searching");
+          setFeedback("Search another city");
         }
         if (data.cod !== 200) setFeedback("CITY NOT FOUND");
       })
@@ -39,16 +42,23 @@ const CityWeatherApp = () => {
   if (hasError) {
     return <h3 className="orangeMsg">Something Went Wrong</h3>;
   } else if (isLoading) {
-    return <h3 className="orangeMsg">Loading...</h3>;
+    return <Loading/>;
   } else {
     return (
-      <div>
-        <h3 className="orangeMsg">{feedback}</h3>
-        <Form getCity={getCity} />
-        {cityWeather && (
-          <CityInfo cityWeather={cityWeather} remove={removeCity} />
-        )}
-      </div>
+      <Router>
+        <Route exact path = '/'>
+          <div>
+            <h3 className="orangeMsg">{feedback}</h3>
+            <Form getCity={getCity} />
+            {cityWeather && (
+              <CityInfo cityWeather={cityWeather} remove={removeCity} />
+            )}
+          </div>
+        </Route>
+        <Route exact path = '/:cityId'>
+          <CityDetails/>
+        </Route>
+      </Router>
     );
   }
 };
